@@ -76,6 +76,10 @@ class DataIngestion:
             
             logging.info("Exited split_data_as_train_test method of Data_ingestion class")
             
+            # Check if folder exists or not , if not exists then it will ceate folders
+            # Both line just for defense if no folder exists then they just for creation 
+            
+            # dir_path = os.path.dirname(self.data_ingestion_config.testing_file_path)
             dir_path = os.path.dirname(self.data_ingestion_config.training_file_path)
             os.makedirs(dir_path,exist_ok=True)
             
