@@ -5,5 +5,4 @@ pymongo
 certifi
 scikit-learn
 pymongo[srv]
-dill
 pyaml

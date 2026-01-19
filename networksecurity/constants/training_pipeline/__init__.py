@@ -13,6 +13,7 @@ ARTIFACT_DIR: str = 'Artifacts'
 FILE_NAME: str = 'phisingData.csv'
 TRAIN_FILE_NAME: str = 'train.csv'
 TEST_FILE_NAME: str = 'test.csv'
+PREPROCESSING_OBJECT_FILE_NAME: str = 'preprocessing.pkl'
 
 SCHEMA_FILE_PATH = os.path.join('data_schema', 'schema.yaml')
 
@@ -37,3 +38,17 @@ DATA_VALIDATION_INVALID_DIR: str = "invalid"
 DATA_VALIDATION_DRIFT_REPORT_DIR: str = "drift_report"
 DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "report.yaml"
 
+'''
+Data Transfromation related constant start with DATA_TRANSFORMATION VAR NAME
+'''
+
+DATA_TARNSFORMATION_DIR_NAME: str = "data_transformation"
+DATA_TARNSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
+DATA_TARNSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
+
+# Used for KNN Imputers to replace nan value
+DATA_TARNSFORMATION_IMPUTER_PARAMS: dict = {
+    "missing_values": np.nan,
+    "n_neighbors" : 3,
+    "weights": "uniform",
+} 
