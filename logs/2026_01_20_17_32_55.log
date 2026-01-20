@@ -1,0 +1,7 @@
+[ 2026-01-20 17:33:05,320 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK" 
+[ 2026-01-20 17:33:05,341 ] 107 dagshub - INFO - Accessing as kirtanmandaviya 
+[ 2026-01-20 17:33:08,586 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/kirtanmandaviya/NetworkSecuritySystem "HTTP/1.1 200 OK" 
+[ 2026-01-20 17:33:17,232 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK" 
+[ 2026-01-20 17:33:17,236 ] 107 dagshub - INFO - Initialized MLflow to track repo "kirtanmandaviya/NetworkSecuritySystem" 
+[ 2026-01-20 17:33:17,236 ] 107 dagshub - INFO - Repository kirtanmandaviya/NetworkSecuritySystem initialized! 
+[ 2026-01-20 17:33:17,242 ] 16 root - INFO - Initialte the data ingestion 
