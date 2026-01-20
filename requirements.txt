@@ -6,3 +6,7 @@ certifi
 scikit-learn
 pymongo[srv]
 pyaml
+mlflow
+dagshub
+fastapi
+uvicorn

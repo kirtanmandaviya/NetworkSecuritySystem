@@ -1,0 +1,37 @@
+[ 2026-01-20 18:45:22,433 ] 74 dagshub.auth.tokens - INFO - Removed expired tokens from the token cache 
+[ 2026-01-20 18:45:38,994 ] 1025 httpx - INFO - HTTP Request: POST https://dagshub.com/login/oauth/middleman "HTTP/1.1 200 OK" 
+[ 2026-01-20 18:45:40,135 ] 1025 httpx - INFO - HTTP Request: POST https://dagshub.com/login/oauth/access_token "HTTP/1.1 200 OK" 
+[ 2026-01-20 18:45:41,236 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK" 
+[ 2026-01-20 18:45:41,238 ] 107 dagshub - INFO - Accessing as kirtanmandaviya 
+[ 2026-01-20 18:45:42,453 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/kirtanmandaviya/NetworkSecuritySystem "HTTP/1.1 200 OK" 
+[ 2026-01-20 18:45:43,447 ] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK" 
+[ 2026-01-20 18:45:43,449 ] 107 dagshub - INFO - Initialized MLflow to track repo "kirtanmandaviya/NetworkSecuritySystem" 
+[ 2026-01-20 18:45:43,449 ] 107 dagshub - INFO - Repository kirtanmandaviya/NetworkSecuritySystem initialized! 
+[ 2026-01-20 18:46:34,350 ] 34 root - INFO - Start data ingestion. 
+[ 2026-01-20 18:46:36,608 ] 75 root - INFO - Performe train test split on the dataframe 
+[ 2026-01-20 18:46:36,608 ] 77 root - INFO - Exited split_data_as_train_test method of Data_ingestion class 
+[ 2026-01-20 18:46:36,608 ] 86 root - INFO - Exporting train and test file path. 
+[ 2026-01-20 18:46:36,665 ] 97 root - INFO - Exported Train and Test file path 
+[ 2026-01-20 18:46:36,666 ] 38 root - INFO - Data Ingestion Completed. Artifacts: DataIngestionArtifacts(trained_file_path='Artifacts\\01_20_2026_18_45_19\\data_ingestion\\ingested\\train.csv', test_file_path='Artifacts\\01_20_2026_18_45_19\\data_ingestion\\ingested\\test.csv') 
+[ 2026-01-20 18:46:36,678 ] 47 root - INFO - Initiate the data validation 
+[ 2026-01-20 18:46:36,740 ] 36 root - INFO - Required number of columns : 2 
+[ 2026-01-20 18:46:36,740 ] 37 root - INFO - Data frame has columns: 31 
+[ 2026-01-20 18:46:36,884 ] 49 root - INFO - Data Validation Completed. Artifacts: DataValidationArtifacts(validation_status=None, valid_train_file_path='Artifacts\\01_20_2026_18_45_19\\data_ingestion\\ingested\\train.csv', valid_test_file_path='Artifacts\\01_20_2026_18_45_19\\data_ingestion\\ingested\\test.csv', invalid_train_file_path=None, invalid_test_file_path=None, drift_report_file_path='Artifacts\\01_20_2026_18_45_19\\data_validation\\drift_report\\report.yaml') 
+[ 2026-01-20 18:46:36,884 ] 58 root - INFO - Initiate Data Transformation 
+[ 2026-01-20 18:46:36,884 ] 65 root - INFO - Entered initiate_data_transformation method of DataTransformation class 
+[ 2026-01-20 18:46:36,884 ] 67 root - INFO - Starting data transformation 
+[ 2026-01-20 18:46:36,909 ] 48 root - INFO - Entered get_data_transformer_object method of Transformation class 
+[ 2026-01-20 18:46:36,910 ] 51 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'} 
+[ 2026-01-20 18:46:36,924 ] 47 root - INFO - Entered the save_object method of MainUtils class 
+[ 2026-01-20 18:46:36,928 ] 51 root - INFO - Exit the save_object method of MainUtils class 
+[ 2026-01-20 18:46:36,928 ] 47 root - INFO - Entered the save_object method of MainUtils class 
+[ 2026-01-20 18:46:36,931 ] 51 root - INFO - Exit the save_object method of MainUtils class 
+[ 2026-01-20 18:46:36,932 ] 60 root - INFO - Data trnasformation completed. Artifacts: DataTransformationArtifacts(transformed_object_file_path='Artifacts\\01_20_2026_18_45_19\\data_transformation\\transformed_object\\preprocessing.pkl', transformed_train_file_path='Artifacts\\01_20_2026_18_45_19\\data_transformation\\transformed\\train.npy', transformed_test_file_path='Artifacts\\01_20_2026_18_45_19\\data_transformation\\transformed\\test.npy') 
+[ 2026-01-20 18:46:36,932 ] 70 root - INFO - Initiate Model Trainer 
+[ 2026-01-20 18:46:36,956 ] 138 root - INFO - Training and Testing data loaded 
+[ 2026-01-20 18:51:07,937 ] 47 root - INFO - Entered the save_object method of MainUtils class 
+[ 2026-01-20 18:51:07,965 ] 51 root - INFO - Exit the save_object method of MainUtils class 
+[ 2026-01-20 18:51:07,965 ] 47 root - INFO - Entered the save_object method of MainUtils class 
+[ 2026-01-20 18:51:07,990 ] 51 root - INFO - Exit the save_object method of MainUtils class 
+[ 2026-01-20 18:51:07,991 ] 125 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\01_20_2026_18_45_19\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9912130087869913, precision_score=0.9899132539842647, recall_score=0.9925161812297735), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9711029711029711, precision_score=0.9590032154340836, recall_score=0.9835119538334708)) 
+[ 2026-01-20 18:51:07,993 ] 76 root - INFO - Model Training Completed. Artifacts: ModelTrainerArtifact(trained_model_file_path='Artifacts\\01_20_2026_18_45_19\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9912130087869913, precision_score=0.9899132539842647, recall_score=0.9925161812297735), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9711029711029711, precision_score=0.9590032154340836, recall_score=0.9835119538334708)) 
