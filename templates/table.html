@@ -1,21 +1,383 @@
-<!DOCTYPE html>
-<html>
+// Calculate and display statistics
+        function calculateStats() {
+            const table = document.querySelector('table');
+            const rows = table.querySelectorAll('tbody tr');
+            const totalRows = rows.length;
+            
+            let positiveCount = 0;
+            let negativeCount = 0;
+            let unknownCount = 0;
+
+            console.log('=== Prediction Analysis ===');
+            console.log('Total rows:', totalRows);
+
+            rows.forEach((row, index) => {
+                const cells = row.querySelectorAll('td');
+                const predictionCell = cells[cells.length - 1];
+                const value = predictionCell.textContent.trim();
+                
+                // Log first few values for debugging
+                if (index < 5) {
+                    console.log(`Row ${index + 1}<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Data Table</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-card.total {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stat-card.positive {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .stat-card.negative {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
             text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+
+        tr:hover {
+            background: #f8f9ff;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Highlight prediction column */
+        td:last-child {
+            font-weight: 600;
+        }
+
+        tr td:last-child {
+            text-align: center;
+        }
+
+        /* Style for predicted values */
+        .prediction-1 {
+            color: #38ef7d;
+            background: #d4f8e8;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .prediction-negative {
+            color: #ff6a00;
+            background: #ffe5d9;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 45px 15px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <h2>Predicted Data</h2>
-    {{ table | safe }}
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Prediction Results</h1>
+            <p class="subtitle">Network Security Threat Analysis</p>
+        </div>
+
+        <div class="stats-bar" id="statsBar">
+            <!-- Stats will be populated by JavaScript -->
+        </div>
+
+        <div class="actions">
+            <a href="/" class="btn btn-primary">🏠 Back to Dashboard</a>
+            <button onclick="downloadCSV()" class="btn btn-secondary">📥 Download CSV</button>
+            <button onclick="window.print()" class="btn btn-primary">🖨️ Print Results</button>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search in results..." onkeyup="searchTable()">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="table-wrapper">
+            {{ table|safe }}
+        </div>
+
+        <div class="footer">
+            <p>Generated on {{ now }} | Total Records: <strong id="totalRows">{{ rows }}</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Calculate and display statistics
+        function calculateStats() {
+            const table = document.querySelector('table');
+            const rows = table.querySelectorAll('tbody tr');
+            const totalRows = rows.length;
+            
+            let positiveCount = 0;
+            let negativeCount = 0;
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const predictionCell = cells[cells.length - 1];
+                const value = predictionCell.textContent.trim();
+                
+                // Convert to number for comparison
+                const numValue = parseFloat(value);
+                
+                if (numValue === 1 || value === '1') {
+                    positiveCount++;
+                    predictionCell.innerHTML = '<span class="prediction-normal">✅ NORMAL</span>';
+                } else if (numValue === 0 || value === '0' || numValue === -1 || value === '-1') {
+                    // Handle both 0 and -1 as ATTACK
+                    negativeCount++;
+                    predictionCell.innerHTML = '<span class="prediction-attack">🚨 ATTACK</span>';
+                } else {
+                    // Handle unexpected values
+                    console.log('Unexpected prediction value:', value);
+                }
+            });
+
+            // Update stats bar
+            const statsBar = document.getElementById('statsBar');
+            statsBar.innerHTML = `
+                <div class="stat-card total">
+                    <div class="stat-number">${totalRows}</div>
+                    <div class="stat-label">Total Records</div>
+                </div>
+                <div class="stat-card positive">
+                    <div class="stat-number">${positiveCount}</div>
+                    <div class="stat-label">✅ NORMAL Traffic</div>
+                </div>
+                <div class="stat-card negative">
+                    <div class="stat-number">${negativeCount}</div>
+                    <div class="stat-label">🚨 ATTACKS Detected</div>
+                </div>
+            `;
+        }
+
+        // Search functionality
+        function searchTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const table = document.querySelector('table');
+            const rows = table.querySelectorAll('tbody tr');
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                let found = false;
+
+                cells.forEach(cell => {
+                    if (cell.textContent.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                    }
+                });
+
+                row.style.display = found ? '' : 'none';
+            });
+        }
+
+        // Download CSV
+        function downloadCSV() {
+            window.location.href = '/prediction_output/output.csv';
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            calculateStats();
+        });
+    </script>
 </body>
 </html>
