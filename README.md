@@ -1,10 +1,10 @@
 ---
 title: Network Security System
-emoji: 🔥
-colorFrom: pink
-colorTo: indigo
+emoji: 🏆
+colorFrom: green
+colorTo: yellow
 sdk: docker
 pinned: false
 license: mit
-short_description: Netwrok Security Anomaly Detection System
+short_description: Network Security Detection  System
 ---
