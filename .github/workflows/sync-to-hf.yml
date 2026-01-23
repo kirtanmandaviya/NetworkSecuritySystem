@@ -12,16 +12,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 1
       
-      - name: Configure Git
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-      
-      - name: Push to Hugging Face Space
+      - name: Create Fresh Repository and Push to Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git remote add hf https://MKPatel007:$HF_TOKEN@huggingface.co/spaces/MKPatel007/network-security-system || true
-          git push hf main --force
+          # Remove existing .git directory to eliminate all history
+          rm -rf .git
+          
+          # Initialize a brand new repository
+          git init -b main
+          
+          # Configure Git
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          
+          # Stage all current files
+          git add .
+          
+          # Create initial commit with only current state
+          git commit -m "Sync from GitHub - $(date +'%Y-%m-%d %H:%M:%S')"
+          
+          # Force push to HF with completely fresh history
+          git push --force https://MKPatel007:$HF_TOKEN@huggingface.co/spaces/MKPatel007/network-security-system main
