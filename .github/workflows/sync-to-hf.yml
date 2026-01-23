@@ -15,8 +15,17 @@ jobs:
           fetch-depth: 0
           lfs: true
       
+      - name: Setup Git LFS
+        run: |
+          git lfs install
+          git lfs pull
+      
       - name: Push to Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git push https://MrKirtan001:$HF_TOKEN@huggingface.co/spaces/MrKirtan001/network-security-system main --force
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git lfs install
+          git remote add hf https://MrKirtan001:$HF_TOKEN@huggingface.co/spaces/MrKirtan001/network-security-system || true
+          git push hf main --force
