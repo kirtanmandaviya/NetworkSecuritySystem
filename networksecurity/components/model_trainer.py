@@ -23,7 +23,19 @@ from networksecurity.utils.ml_utils.model.estimator import NetworkModel
 from networksecurity.utils.ml_utils.metric.classification_metric import get_classification_score
 
 import dagshub
-dagshub.init(repo_owner='kirtanmandaviya', repo_name='NetworkSecuritySystem', mlflow=True)
+
+
+# Configure DagsHub authentication using environment variables
+os.environ['MLFLOW_TRACKING_URI'] = "https://dagshub.com/kirtanmandaviya/NetworkSecuritySystem.mlflow"
+os.environ['MLFLOW_TRACKING_USERNAME'] = os.getenv('MLFLOW_TRACKING_USERNAME', 'kirtanmandaviya')
+os.environ['MLFLOW_TRACKING_PASSWORD'] = os.getenv('MLFLOW_TRACKING_PASSWORD', '')
+
+# Initialize DagsHub only if credentials are available
+try:
+    if os.getenv('MLFLOW_TRACKING_PASSWORD'):
+        dagshub.init(repo_owner='kirtanmandaviya', repo_name='NetworkSecuritySystem', mlflow=True)
+except Exception as e:
+    logging.warning(f"Could not initialize DagsHub: {e}. MLflow tracking may not work.")
 
 class ModelTrainer:
     def __init__(self, model_trainer_config: ModelTrainerConfig, data_transformation_artifact: DataTransformationArtifacts):

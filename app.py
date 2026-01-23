@@ -282,4 +282,4 @@ async def predict_json_route(file: UploadFile = File(...)):
 #Entry point
 
 if __name__ == "__main__":
-    app_run(app, host="0.0.0.0", port=8000)
+    app_run(app, host="0.0.0.0", port=7860)
