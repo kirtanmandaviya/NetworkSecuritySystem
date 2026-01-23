@@ -24,5 +24,4 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git remote add hf https://MKPatel007:$HF_TOKEN@huggingface.co/spaces/MKPatel007/network-security-system || true
-          git push hf main --force
-          
+
