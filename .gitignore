@@ -1,3 +1,6 @@
 .venv/
 .env
 venv/
+final_model/
+model.pkl
+preprocessor.pkl
