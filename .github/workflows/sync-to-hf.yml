@@ -20,12 +20,20 @@ jobs:
           git lfs install
           git lfs pull
       
-      - name: Push to Hugging Face Space
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      - name: Configure Git
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
+      
+      - name: Push to Hugging Face Space with LFS
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
           git lfs install
           git remote add hf https://MrKirtan001:$HF_TOKEN@huggingface.co/spaces/MrKirtan001/network-security-system || true
-          git push hf main --force
+          
+          # Track LFS files again to ensure they're recognized
+          git lfs track "*.pkl"
+          
+          # Push with LFS
+          GIT_LFS_SKIP_SMUDGE=1 git push hf main --force
